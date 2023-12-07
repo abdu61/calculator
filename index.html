@@ -14,34 +14,34 @@
     <main>
         <div class="calculator">
             <div class="display">
-                <div class="display">78868768</div>
+                <div class="displayA"><span id="show">234</span></div>
             </div>
             <div class="row rowClear">
-                <button class="button">Clear</button>
-                <button class="button icon"><img src="img/backspace.png"></button>
+                <button class="button" id="Clear">Clear</button>
+                <button class="button icon" clear="backspace"><img src="img/backspace.png"></button>
             </div>
             <div class="row">
-                <button class="button">7</button>
-                <button class="button">8</button>
-                <button class="button">9</button>
+                <button class="button buttonNo" value="7">7</button>
+                <button class="button buttonNo" value="8">8</button>
+                <button class="button buttonNo" value="9">9</button>
                 <button class="button operator">+</button>
             </div>
             <div class="row">
-                <button class="button">4</button>
-                <button class="button">5</button>
-                <button class="button">6</button>
+                <button class="button buttonNo" value="4">4</button>
+                <button class="button buttonNo" value="5">5</button>
+                <button class="button buttonNo" value="6">6</button>
                 <button class="button operator">-</button>
             </div>
             <div class="row">
-                <button class="button">1</button>
-                <button class="button">2</button>
-                <button class="button">3</button>
+                <button class="button buttonNo" value="1">1</button>
+                <button class="button buttonNo" value="2">2</button>
+                <button class="button buttonNo" value="3">3</button>
                 <button class="button operator">*</button>
             </div>
             <div class="row">
-                <button class="button">.</button>
-                <button class="button">0</button>
-                <button class="button equal">=</button>
+                <button class="button" id="decimal">.</button>
+                <button class="button buttonNo" value="0">0</button>
+                <button class="button equal" id="equals">=</button>
                 <button class="button operator">/</button>
             </div>
         </div>

@@ -29,3 +29,12 @@ function operate(operator, a, b){
             return divide(a, b);
     }
 }
+
+let display = document.querySelector("#show");
+let buttons = document.querySelectorAll(".button");
+let clear = document.querySelector("#clear");
+let equals = document.querySelector("#equals");
+let decimal = document.querySelector("#decimal");
+let backspace = document.querySelector("#backspace");
+let displayValue = "";
+let operator = "";
