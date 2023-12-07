@@ -27,6 +27,8 @@ function operate(operator, a, b){
             return multiply(a, b);
         case "/":
             return divide(a, b);
+        default:
+            return "Error: Invalid operator";
     }
 }
 
@@ -40,47 +42,71 @@ let operators = document.querySelectorAll(".operator");
 let displayValue = "";
 let operator = "";
 
-buttons.forEach((button => {
+buttons.forEach((button) => {
     button.addEventListener("click", () => {
         displayValue += button.textContent;
         display.textContent = displayValue;
-    })
-}
-))
+    });
+});
 
 clear.addEventListener("click", () => {
     displayValue = "";
-    display.textContent = displayValue;
-})
+    firstValue = "";
+    secondValue = "";
+    result = null;
+    operator = "";
+    awaitingSecondValue = false;
+    display.textContent = "0";
+    decimal.disabled = false;
+});
 
 backspace.addEventListener("click", () => {
     displayValue = displayValue.slice(0, -1);
     display.textContent = displayValue;
-})
+});
 
 decimal.addEventListener("click", () => {
-    if(!displayValue.includes(".")){
+    let currentNumber = awaitingSecondValue ? displayValue.slice(firstValue.length + operator.length) : displayValue;
+    if(!currentNumber.includes(".")){
         displayValue += ".";
         display.textContent = displayValue;
     }
-})
+});
 
-operators.forEach((operatorButton => {
+let firstValue = "";
+let secondValue = "";
+let result = null;
+let awaitingSecondValue = false;
+
+operators.forEach((operatorButton) => {
     operatorButton.addEventListener("click", () => {
-        operator = operatorButton.textContent;
-        displayValue += operator;
-        display.textContent = displayValue;
-    })
-}))
+        if (!awaitingSecondValue) {
+            operator = operatorButton.textContent;
+            firstValue = displayValue;
+            displayValue += operator;
+            display.textContent = displayValue;
+            decimal.disabled = false;
+            awaitingSecondValue = true;
+        } else {
+            decimal.disabled = false;
+            secondValue = displayValue.slice(firstValue.length + operator.length);
+            result = operate(operator, parseFloat(firstValue), parseFloat(secondValue)).toString();
+            firstValue = result;
+            operator = operatorButton.textContent;
+            displayValue = firstValue + operator;
+            display.textContent = displayValue;
+        }
+    });
+});
 
 equals.addEventListener("click", () => {
-    let values = displayValue.split(operator);
-    let a = parseFloat(values[0]);
-    let b = parseFloat(values[1]);
-    displayValue = operate(operator, a, b);
-    display.textContent = displayValue;
-})
-
-
-
-
+    if (awaitingSecondValue) {
+        secondValue = displayValue.slice(firstValue.length + operator.length);
+        result = operate(operator, parseFloat(firstValue), parseFloat(secondValue)).toString();
+        display.textContent = result;
+        displayValue = result;
+        operator = "";
+        decimal.disabled = false;
+        awaitingSecondValue = false;
+    }
+});
