@@ -1,41 +1,16 @@
-function add(a, b){
-    return a + b;
-}
+const operations = {
+    '+': (a, b) => a + b,
+    '-': (a, b) => a - b,
+    '*': (a, b) => a * b,
+    '/': (a, b) => b === 0 ? "Error: Division by zero" : a / b,
+    '%': (a, b) => a % b,
+};
 
-function subtract(a, b){
-    return a - b;
-}
-
-function multiply(a, b){
-    return a * b;
-}
-
-function divide(a, b){
-    if(b == 0){
-        return "Error: Division by zero";
+function operate(operator, a, b) {
+    if (!operations[operator]) {
+        return "Error: Invalid operator";
     }
-    return a / b;
-}
-
-function modulo(a, b){
-    return a % b;
-}
-
-function operate(operator, a, b){
-    switch(operator){
-        case "+":
-            return add(a, b);
-        case "-":
-            return subtract(a, b);
-        case "*":
-            return multiply(a, b);
-        case "/":
-            return divide(a, b);
-        case "%":
-            return modulo(a, b);
-        default:
-            return "Error: Invalid operator";
-    }
+    return operations[operator](a, b);
 }
 
 //Select elements from the DOM
@@ -48,82 +23,64 @@ let backspace = document.querySelector("#backspace");
 let power = document.querySelector("#power");
 let operators = document.querySelectorAll(".operator");
 
-//Variables to hold the current display value
 let displayValue = "";
 let operator = "";
 let powerOn = true;
 
-//Event listeners for number buttons
-buttons.forEach((button) => {
+function updateDisplay(value) {
+    display.textContent = value;
+}
+
+// Calculator ON/OFF Button Functionality
+function setCalculatorState(enabled) {
+    let color = enabled ? "#CF6B79" : "#8de98c";
+    let powerText = enabled ? "Off" : "On";
+    let displayText = enabled ? "0" : "";
+
+    buttons.forEach(button => button.disabled = !enabled);
+    [clear, equals, decimal, backspace, ...operators].forEach(button => button.disabled = !enabled);
+
+    power.style.backgroundColor = color;
+    power.textContent = powerText;
+    updateDisplay(displayText);
+}
+
+buttons.forEach(button => {
     button.addEventListener("click", () => {
         displayValue += button.textContent;
-        display.textContent = displayValue;
+        updateDisplay(displayValue);
     });
 });
 
-//Event listener for power button
 power.addEventListener("click", () => {
-    if(powerOn){
-        powerOn = false;
-        greeting();
-        setTimeout(() => {
-            displayValue = "";
-            firstValue = "";
-            secondValue = "";
-            result = null;
-            operator = "";
-            awaitingSecondValue = false;
-            display.textContent = "";
-            decimal.disabled = false;
-            power.textContent = "On";
-            buttons.forEach((button) => {
-                button.disabled = true;
-            });
-            clear.disabled = true;
-            equals.disabled = true;
-            decimal.disabled = true;
-            backspace.disabled = true;
-            operator.disabled = true;
-            power.style.backgroundColor = "#8de98c";
-        }, 2000); 
-    }
-    else{
-        powerOn = true;
+    powerOn = !powerOn;
     greeting();
     setTimeout(() => {
-        power.textContent = "Off";
-        display.textContent = "0";
-        buttons.forEach((button) => {
-            button.disabled = false;
-        });
-        clear.disabled = false;
-        equals.disabled = false;
-        decimal.disabled = false;
-        backspace.disabled = false;
-        operator.disabled = false;
-        power.style.backgroundColor = "#CF6B79";
-    }, 2000); 
-    }
+        setCalculatorState(powerOn);
+    }, 2000);
 });
     
 
-
-//Event listeners for clear button
-clear.addEventListener("click", () => {
+function clearCalculator() {
     displayValue = "";
     firstValue = "";
     secondValue = "";
     result = null;
     operator = "";
     awaitingSecondValue = false;
-    display.textContent = "0";
     decimal.disabled = false;
+}
+
+//Event listeners for clear button
+clear.addEventListener("click", () => {
+    clearCalculator();
+    updateDisplay("0");
 });
 
 //Event listeners for backspace button
 backspace.addEventListener("click", () => {
     displayValue = displayValue.slice(0, -1);
-    display.textContent = displayValue;
+    updateDisplay(displayValue);
 });
 
 //Event listeners for decimal button
@@ -131,46 +88,50 @@ decimal.addEventListener("click", () => {
     let currentNumber = awaitingSecondValue ? displayValue.slice(firstValue.length + operator.length) : displayValue;
     if(!currentNumber.includes(".")){
         displayValue += ".";
-        display.textContent = displayValue;
+        updateDisplay(displayValue);
     }
 });
 
 /* Variables to hold the first and second values of the operation, the result,
    and a flag to indicate if we're awaiting a second value */
-let firstValue = "";
-let secondValue = "";
-let result = null;
-let awaitingSecondValue = false;
-
-//Event listeners for operator buttons
-operators.forEach((operatorButton) => {
-    operatorButton.addEventListener("click", () => {
-        // If the last character in displayValue is an operator, ignore this click
-        if ('+-*/'.includes(displayValue.slice(-1))) {
-            return;
-        }
-        
-        // If we're not awaiting a second value, store the operator and first value, and update the display
-        if (!awaitingSecondValue) {
-            operator = operatorButton.textContent;
-            firstValue = displayValue;
-            displayValue += operator;
-            display.textContent = displayValue;
-            decimal.disabled = false;
-            awaitingSecondValue = true;
-        } 
-        // If we're awaiting a second value, calculate the result of the operation and update the display
-        else {
-            decimal.disabled = false;
-            secondValue = displayValue.slice(firstValue.length + operator.length);
-            result = operate(operator, parseFloat(firstValue), parseFloat(secondValue)).toString();
-            firstValue = result;
-            operator = operatorButton.textContent;
-            displayValue = firstValue + operator;
-            display.textContent = displayValue;
-        }
-    });
-});
+   let firstValue = "";
+   let secondValue = "";
+   let result = null;
+   let awaitingSecondValue = false;
+   
+   function performOperation() {
+       secondValue = displayValue.slice(firstValue.length + operator.length);
+       result = operate(operator, parseFloat(firstValue), parseFloat(secondValue)).toString();
+       firstValue = result;
+       displayValue = firstValue + operator;
+   }
+   
+   //Event listeners for operator buttons
+   operators.forEach((operatorButton) => {
+       operatorButton.addEventListener("click", () => {
+           // If the last character in displayValue is an operator, ignore this click
+           if ('+-*/'.includes(displayValue.slice(-1))) {
+               return;
+           }
+           
+           // If we're not awaiting a second value, store the operator and first value, and update the display
+           if (!awaitingSecondValue) {
+               operator = operatorButton.textContent;
+               firstValue = displayValue;
+               displayValue += operator;
+               updateDisplay(displayValue);
+               decimal.disabled = false;
+               awaitingSecondValue = true;
+           } 
+           // If we're awaiting a second value, calculate the result of the operation and update the display
+           else {
+               decimal.disabled = false;
+               performOperation();
+               operator = operatorButton.textContent;
+               updateDisplay(displayValue);
+           }
+       });
+   });
 
 //Event listener for equals button
 equals.addEventListener("click", () => {
@@ -178,7 +139,7 @@ equals.addEventListener("click", () => {
     if (awaitingSecondValue) {
         secondValue = displayValue.slice(firstValue.length + operator.length);
         result = operate(operator, parseFloat(firstValue), parseFloat(secondValue)).toString();
-        display.textContent = result;
+        updateDisplay(result);
         displayValue = result;
         operator = "";
         decimal.disabled = false;
@@ -188,11 +149,16 @@ equals.addEventListener("click", () => {
 
 // Function to handle keyboard input
 function keyboardInput(e){
-    let key = e.key;
     e.preventDefault();
-    if(key == "Enter"){
-        key = "=";
+    let key = e.key;
+
+    switch (key) {
+        case 'Enter':
+            key = '=';
+            break;
+        // Add cases for other special keys if needed
     }
+
     let button = document.querySelector(`button[data-key="${key}"]`);
 
     // If a corresponding button was found, simulate a click on it
@@ -205,13 +171,11 @@ function keyboardInput(e){
 window.addEventListener("keydown", keyboardInput);
 
 function greeting(){
-    if(powerOn){
-        display.textContent = "Hello";
-        display.classList.add('fadeIn');
-    } else{
-        display.textContent = "Goodbye";
-        display.classList.add('fadeOut');
-    }
+    let message = powerOn ? "Hello" : "Goodbye";
+    let animationClass = powerOn ? 'fadeIn' : 'fadeOut';
+
+    updateDisplay(message);
+    display.classList.add(animationClass);
 
     // Remove the class after the animation completes to be ready for the next one
     setTimeout(function() {
