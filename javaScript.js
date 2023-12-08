@@ -29,6 +29,7 @@ let powerOn = true;
 
 function updateDisplay(value) {
     display.textContent = value;
+    display.scrollLeft = display.scrollWidth;
 }
 
 // Calculator ON/OFF Button Functionality
@@ -156,7 +157,6 @@ function keyboardInput(e){
         case 'Enter':
             key = '=';
             break;
-        // Add cases for other special keys if needed
     }
 
     let button = document.querySelector(`button[data-key="${key}"]`);
@@ -177,9 +177,8 @@ function greeting(){
     updateDisplay(message);
     display.classList.add(animationClass);
 
-    // Remove the class after the animation completes to be ready for the next one
     setTimeout(function() {
         display.classList.remove('fadeIn');
         display.classList.remove('fadeOut');
-    }, 2000); // same duration as your animation
+    }, 2000); // 2000ms = 2s
 }
