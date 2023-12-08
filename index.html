@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="styleSheet" href="style.css">
     <script src="javaScript.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 
@@ -16,29 +19,36 @@
             <div class="display">
                 <div class="displayA"><span id="show">0</span></div>
             </div>
-            <div class="row rowClear">
-                <button class="button" id="clear" data-key="c">Clear (C)</button>
+
+            <div class="row">
+                <button class="button" id="Power" data-key="ESC">ON</button>
+                <button class="button" id="clear" data-key="c">C</button>
+                <button class="button operator" data-key="%">%</button>
                 <!-- Icons By sonnycandra-->
                 <button class="button icon" id="backspace" data-key="Backspace"><img src="img/backspace.png"></button>
             </div>
+
             <div class="row">
                 <button class="button buttonNo" data-key="7">7</button>
                 <button class="button buttonNo" data-key="8">8</button>
                 <button class="button buttonNo" data-key="9">9</button>
                 <button class="button operator" data-key="+">+</button>
             </div>
+
             <div class="row">
                 <button class="button buttonNo" data-key="4">4</button>
                 <button class="button buttonNo" data-key="5">5</button>
                 <button class="button buttonNo" data-key="6">6</button>
                 <button class="button operator" data-key="-">-</button>
             </div>
+
             <div class="row">
                 <button class="button buttonNo" data-key="1">1</button>
                 <button class="button buttonNo" data-key="2">2</button>
                 <button class="button buttonNo" data-key="3">3</button>
                 <button class="button operator" data-key="*">*</button>
             </div>
+
             <div class="row">
                 <button class="button" id="decimal" data-key=".">.</button>
                 <button class="button buttonNo"  data-key="0">0</button>

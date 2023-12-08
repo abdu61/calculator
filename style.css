@@ -1,42 +1,71 @@
+@font-face {
+    font-family: segmented;
+    src:url("/fonts/DS-DIGIB.TTF");
+}
+
 body{
-    background-color: #181515;
-    font-family: 'Roboto', sans-serif;
+    background-color: #dadada;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     color: #000;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+header, main, footer{
+    width: 100%;
 }
 
 header{
-    width: 100%;
     height: 50px;
-    color: #fff;
-    font-size: 24px;
+    color: #000000;
+    font-size: 30px;
     font-weight: 600;
-    margin: 20px 0px;
+    padding: 20px 0px;
+    text-align: center;
+}
+
+main{
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+footer{
+    height: 20px;
+    background-color: #000000;
+}
+
 .calculator{
     width: 400px;
-    height: 500px;
-    background-color: #fff;
+    height: 600px;
+    background-color:#87A7CE;
     margin: 0 auto;
-    margin-top: 100px;
     border-radius: 8px;
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    box-shadow: 20px 20px 4px 2px #c1d2e7;
 }
 
 .display{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
+    text-align: right;
+    font-family: 'segmented', sans-serif;
+    font-size: 3rem;
+    padding: 20px;
+    background-color: #CFD0D2;
+    border: solid 0.1px #000;
+    border-radius: 8px;
+}
+
+.displayA{
+    min-height: 2.1rem;
 }
 
 .row{
@@ -51,20 +80,16 @@ header{
     height: 30px;
 }
 
-.rowClear{
-    justify-content: space-around;
-    margin-bottom: 5px;
-    margin-top: 5px;
-}
-
 button{
-    width: 120px;
+    width: 110px;
     height: 60px;
     border-radius: 8px;
     border: none;
-    background-color: #181515;
-    color: #fff;
-    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
     font-weight: 600;
+    background-color: #284164;
+    box-shadow: 5px 5px 0px 1px #000000;
+    color: #fff;
     cursor: pointer;
 }

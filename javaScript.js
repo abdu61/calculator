@@ -17,6 +17,10 @@ function divide(a, b){
     return a / b;
 }
 
+function modulo(a, b){
+    return a % b;
+}
+
 function operate(operator, a, b){
     switch(operator){
         case "+":
@@ -27,6 +31,8 @@ function operate(operator, a, b){
             return multiply(a, b);
         case "/":
             return divide(a, b);
+        case "%":
+            return modulo(a, b);
         default:
             return "Error: Invalid operator";
     }
@@ -134,10 +140,10 @@ equals.addEventListener("click", () => {
 // Function to handle keyboard input
 function keyboardInput(e){
     let key = e.key;
+    e.preventDefault();
     if(key == "Enter"){
         key = "=";
     }
-    e.preventDefault()
     let button = document.querySelector(`button[data-key="${key}"]`);
 
     // If a corresponding button was found, simulate a click on it
