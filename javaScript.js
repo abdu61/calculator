@@ -163,8 +163,14 @@ function keyboardInput(e){
 
     // If a corresponding button was found, simulate a click on it
     if (button) {
+        button.classList.add('button-hover'); // Add hover class
         button.click();
-    }  
+    }
+    
+    // Remove hover class after a delay
+    setTimeout(() => {
+        button.classList.remove('button-hover');
+    }, 250); // 250ms delay
 }
 
 // Event listener for keyboard input
@@ -180,5 +186,5 @@ function greeting(){
     setTimeout(function() {
         display.classList.remove('fadeIn');
         display.classList.remove('fadeOut');
-    }, 2000); // 2000ms = 2s
+    }, 2000); // 2000ms = 2s delay
 }
