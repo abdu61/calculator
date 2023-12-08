@@ -61,10 +61,10 @@ footer{
     font-family: 'segmented', sans-serif;
     font-size: 50px;
     padding: 20px;
-    background-color: #CFD0D2;
+    background-color: rgb(69, 105, 102);;
     border: solid 0.1px #000;
     border-radius: 8px;
-    box-shadow: inset 8px 8px 6px #816565;
+    box-shadow: inset 8px 8px 6px #363535;
     display: flex;
     justify-content: flex-end;
     overflow: auto;
