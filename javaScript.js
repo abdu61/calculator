@@ -45,11 +45,13 @@ let clear = document.querySelector("#clear");
 let equals = document.querySelector("#equals");
 let decimal = document.querySelector("#decimal");
 let backspace = document.querySelector("#backspace");
+let power = document.querySelector("#power");
 let operators = document.querySelectorAll(".operator");
 
 //Variables to hold the current display value
 let displayValue = "";
 let operator = "";
+let powerOn = true;
 
 //Event listeners for number buttons
 buttons.forEach((button) => {
@@ -58,6 +60,53 @@ buttons.forEach((button) => {
         display.textContent = displayValue;
     });
 });
+
+//Event listener for power button
+power.addEventListener("click", () => {
+    if(powerOn){
+        powerOn = false;
+        greeting();
+        setTimeout(() => {
+            displayValue = "";
+            firstValue = "";
+            secondValue = "";
+            result = null;
+            operator = "";
+            awaitingSecondValue = false;
+            display.textContent = "";
+            decimal.disabled = false;
+            power.textContent = "On";
+            buttons.forEach((button) => {
+                button.disabled = true;
+            });
+            clear.disabled = true;
+            equals.disabled = true;
+            decimal.disabled = true;
+            backspace.disabled = true;
+            operator.disabled = true;
+            power.style.backgroundColor = "#8de98c";
+        }, 2000); 
+    }
+    else{
+        powerOn = true;
+    greeting();
+    setTimeout(() => {
+        power.textContent = "Off";
+        display.textContent = "0";
+        buttons.forEach((button) => {
+            button.disabled = false;
+        });
+        clear.disabled = false;
+        equals.disabled = false;
+        decimal.disabled = false;
+        backspace.disabled = false;
+        operator.disabled = false;
+        power.style.backgroundColor = "#CF6B79";
+    }, 2000); 
+    }
+});
+    
+
 
 //Event listeners for clear button
 clear.addEventListener("click", () => {
@@ -154,3 +203,19 @@ function keyboardInput(e){
 
 // Event listener for keyboard input
 window.addEventListener("keydown", keyboardInput);
+
+function greeting(){
+    if(powerOn){
+        display.textContent = "Hello";
+        display.classList.add('fadeIn');
+    } else{
+        display.textContent = "Goodbye";
+        display.classList.add('fadeOut');
+    }
+
+    // Remove the class after the animation completes to be ready for the next one
+    setTimeout(function() {
+        display.classList.remove('fadeIn');
+        display.classList.remove('fadeOut');
+    }, 2000); // same duration as your animation
+}

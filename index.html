@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Document</title>
 </head>
 
@@ -16,16 +17,20 @@
 
     <main>
         <div class="calculator">
+            <div class="displayOuter">
             <div class="display">
                 <div class="displayA"><span id="show">0</span></div>
             </div>
+            </div>
 
+            <div class="allButtons">
             <div class="row">
-                <button class="button" id="Power" data-key="ESC">ON</button>
+                <button class="button" id="power" data-key="Escape">Off</button>
                 <button class="button" id="clear" data-key="c">C</button>
                 <button class="button operator" data-key="%">%</button>
-                <!-- Icons By sonnycandra-->
-                <button class="button icon" id="backspace" data-key="Backspace"><img src="img/backspace.png"></button>
+                <button class="button icon" id="backspace" data-key="Backspace">
+                    <span class="material-symbols-outlined">backspace</span>
+                </button>
             </div>
 
             <div class="row">
@@ -55,12 +60,13 @@
                 <button class="button equal" id="equals"  data-key="=">=</button>
                 <button class="button operator" data-key="/">/</button>
             </div>
+            </div>
         </div>
 
     </main>
 
     <footer>
-
+        <p>Created with Love - Abdu</p>
     </footer>
     
 </body>
