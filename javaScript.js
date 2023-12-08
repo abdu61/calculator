@@ -137,6 +137,7 @@ function keyboardInput(e){
     if(key == "Enter"){
         key = "=";
     }
+    e.preventDefault()
     let button = document.querySelector(`button[data-key="${key}"]`);
 
     // If a corresponding button was found, simulate a click on it
