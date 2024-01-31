@@ -1,3 +1,8 @@
+:root{
+    --header: 40px;
+    --main: calc(100vh - var(--header));
+}
+
 @font-face {
     font-family: segmented;
     src:url("fonts/DS-DIGIB.TTF");
@@ -25,7 +30,6 @@ header, main, footer{
 }
 
 header{
-    height: 50px;
     color: #000000;
     font-size: 30px;
     font-weight: 600;
